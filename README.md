@@ -44,8 +44,8 @@ npm install @chalda/lock.js
 ```
 You can also include this library in your HTML page directly from a CDN:
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@chalda/lock.js@1.0.0/dist/lock.css">
-<script src="https://unpkg.com/@chalda/lock.js@1.0.0/dist/lock.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@chalda/lock.js/dist/lock.css">
+<script src="https://unpkg.com/@chalda/lock.js/dist/lock.min.js"></script>
 ```
 
 
