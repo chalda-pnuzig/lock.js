@@ -39,15 +39,22 @@
 			background: #222;
 			text-align: center;
 		}
+		button{
+			padding:5px 20px;
+			margin:20px;
+			border:1px solid #000;
+			background:#eee;
+			border-radius: 3px;
+		}
 	</style>
 </head>
 <body>
 <div class="container">
-	<img src="src/images/logo.svg">
+	<img alt="lock.js" src="src/images/logo.svg" width="200">
 	<hr>
 	<div class="demo">
 		<div>
-			<h2>Default</h2>
+			<h2>Default configuration</h2>
 			<pre>new Lock();</pre>
 		</div>
 		<div id="lock1"></div>
@@ -68,17 +75,17 @@ new Lock({
 	</div>
 	<div class="demo">
 		<div>
-			<h2>Custom items, opening code set to LOCK and callbacks</h2>
+			<h2>Custom items, opening code and callbacks</h2>
 			<pre>new Lock({
   code     : 'LOCK',
   items:['L','O','C','K','🔒'],
   onchange : (code, isOpen, moves) => {
     console.log(code, isOpen, moves);
   },
-  onopen   : (m) => {
-    alert('Open!');
+  onopen   : (attemps) => {
+    alert(`Open in ${attemps} attems!`);
   },
-  onclose  : (m) => {
+  onclose  : (attemps) => {
     alert('Close!');
   }
 });
@@ -130,16 +137,16 @@ document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
 				console.log(code, isOpen, moves);
 				evt.innerHTML = `Code: ${code}\nIs open? ${isOpen}\nMoves: ${moves}`;
 			},
-			onopen   : (m) => {
-				alert('Open!');
+			onopen   : (attemps) => {
+				alert(`Open in ${attemps} attems!`);
 			},
-			onclose  : (m) => {
+			onclose  : (attemps) => {
 				alert('Close!');
 			}
 		});
 		let lock = new Lock({id:'lock4'});
-		document.getElementById('btn__getCode').addEventListener('click',  e=>alert(lock.getCode()));
-		document.getElementById('btn__shuffle').addEventListener('click',  e=>lock.shuffle());
+		document.getElementById('btn__getCode').addEventListener('click',  ()=>alert(lock.getCode()));
+		document.getElementById('btn__shuffle').addEventListener('click',  ()=>lock.shuffle());
 	</script>
 </div>
 </body>

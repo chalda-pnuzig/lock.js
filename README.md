@@ -1,6 +1,6 @@
 # lock.js
 
-<img alt="lock.js" width="600" src="https://chalda-pnuzig.github.io/lock/src/images/logo.svg" alt="Lock" width="200" />
+<img alt="lock.js" src="https://chalda-pnuzig.github.io/lock.js/src/images/logo.svg" width="200" />
 
 Lock.js is a javaScript library for generating numbers lock.
 
@@ -34,9 +34,6 @@ You can also include this library in your HTML page directly from a CDN:
 ```html
 <script src="https://cdn..net/npm/lock@1.0.0/dist/lock.min.js"></script>
 ```
-
-_Note: you should use the latest version at the time that you include your project.
-You can see all versions [on the releases page](https://github.com/chalda-pnuzig/lock)._
 -->
 
 ### Usage
@@ -45,7 +42,7 @@ You can see all versions [on the releases page](https://github.com/chalda-pnuzig
 new Lock(options);
 ```
 
-### options
+### Options
 
 The `lock` parameter is a single optional `options` object, which has the following properties:
 
@@ -57,19 +54,20 @@ The `lock` parameter is a single optional `options` object, which has the follow
 | `code `    | _String_                             | '00000'  | The code to open the lock
 | `timeout`  | _Integer_                            | 500      | The amount of time before the code can be changed again
 | `diameter` | _Integer_                            | 0.9      | The diameter of the lock
-| `onchange` | _Function_ <ul><li>_string_ code</li><li> _bool_ isOpen</li><li>_int_ moves</li></ul>| | This function is called upon every change to the lock
-| `onopen`   | _Function_ <ul><li>moves</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
-| `onclose`  | _Function_ <ul><li>moves</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
+| `onchange` | _Function_ <ul><li>_string_ `code`</li><li> _bool_ `isOpen`</li><li>_int_ `attemps`</li></ul>| | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attemps`)   
+| `onopen`   | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
+| `onclose`  | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
 
-#### `methods`
+### Methods
 
-| method     | return   | description                     | example
-|------------|----------|---------------------------------|--------------
-| `shuffle`  | _String_ | Set a random code and return it | `let lock = new Lock(); lock.shuffle();`
-| `getCode`  | _String_ | Return the current code         | ```let lock = new Lock(); console.log(lock.getCode();```
+| Method     | Decription     | Example                
+|------------|----------------|---------
+| `shuffle([min], [max], [time])`  | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul> | `let lock = new Lock(); let newCode = lock.shuffle();`
+| `getCode`  | Return the current code         | ```let lock = new Lock(); console.log(lock.getCode();```
 
+--------------------------------
 
-## License
+### License
 ISC License (ISC) - Copyright &copy;2021 [Chalda Pnuzig ](https://github.com/chalda-pnuzig/lock.js)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.

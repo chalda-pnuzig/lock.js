@@ -11,11 +11,11 @@ class Lock {
 			items    : 10,
 			timeout  : 500,
 			diameter : 80,
-			onchange : (code, isOpen, moves) => {
+			onchange : (code, isOpen, attemps) => {
 			},
-			onopen   : (moves) => {
+			onopen   : (attemps) => {
 			},
-			onclose  : (moves) => {
+			onclose  : (attemps) => {
 			}
 		};
 
@@ -42,7 +42,7 @@ class Lock {
 		this.circumference = Math.PI * this.diameter;
 		this.elementHeight = this.circumference / (this.options.items - 1);
 
-		this.moves = 0;
+		this.attemps = 0;
 		this.open  = this.options.code === this.actualCode.join('');
 
 		this.lock = document.createElement('div');
@@ -78,7 +78,7 @@ class Lock {
 		let n             = this.clickElement;
 		this.clickElement = false;
 
-		this.moves++;
+		this.attemps++;
 		this.rotate[n] += this.angle * direction;
 		this.clickInner.style.transform = 'rotateX(' + this.rotate[n] + 'deg)';
 		this.actualCode[n] -= direction;
@@ -87,15 +87,15 @@ class Lock {
 
 		let code = this.getCode();
 
-		this.options.onchange(code, this.open, this.moves);
+		this.options.onchange(code, this.open, this.attemps);
 		setTimeout(() => {
 			this.onTimeout = false;
 			if (code === this.options.code) {
 				this.open = true;
-				this.options.onopen(this.moves);
+				this.options.onopen(this.attemps);
 			} else if (this.open) {
 				this.open = false;
-				this.options.onclose(this.moves);
+				this.options.onclose(this.attemps);
 			}
 		}, this.options.timeout);
 		this.lock.style.setProperty('--rotationSpeed', this.options.timeout / 2 + 'ms');
