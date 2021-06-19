@@ -66,18 +66,18 @@ The `lock` parameter is a single optional `options` object, which has the follow
 | `items`    | _Integer_ &#124; Array&lt;String&gt; | 10       | The number of digits that can be chosen or an array of elements
 | `code `    | _String_                             | '00000'  | The code to open the lock
 | `timeout`  | _Integer_                            | 500      | The amount of time before the code can be changed again
-| `diameter` | _Integer_                            | 0.9      | The diameter of the lock
+| `diameter` | _Integer_                            | 80      | The diameter of the lock
 | `onchange` | _Function_ <ul><li>_string_ `code`</li><li> _bool_ `isOpen`</li><li>_int_ `attemps`</li></ul>| | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attemps`)
 | `onopen`   | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
 | `onclose`  | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
 
 ### Methods
 
-| Method                          | Decription               | Example
-|---------------------------------|--------------------------|---------
-| `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul> | `let newCode = lock.shuffle();`
-| `getCode`                       | Return the current code  | ```let code = lock.getCode();```
-| `setCode(code)`                 | Set the code             | ```lock.setCode('12345');```
+| Method                          | Decription              
+|---------------------------------|--------------------------
+| `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul>  Example:`let newCode = lock.shuffle();`
+| `getCode`                       | Return the current code  <br>Example: ```let code = lock.getCode();```
+| `setCode(code)`                 | Set the code             <br>Example: ```lock.setCode('12345');```
 
 --------------------------------
 
