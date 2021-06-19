@@ -148,18 +148,6 @@ document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
 		document.getElementById('btn__getCode').addEventListener('click',  ()=>alert(lock.getCode()));
 		document.getElementById('btn__shuffle').addEventListener('click',  ()=>lock.shuffle());
 
-		new Lock({
-			id       : 'lock4',
-			code     : 'LOCK',
-			diameter : 50,
-			items    : ['L', 'O', 'C', 'K', '🔒'],
-			onopen   : (attemps) => {
-				document.getElementById('wow').
-			},
-			onclose  : (attemps) => {
-				alert('Close!');
-			}
-		});
 	</script>
 </div>
 </body>
