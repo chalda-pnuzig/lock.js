@@ -1,5 +1,5 @@
 {
-	"name": "lock.js",
+	"name": "@chalda/lock.js",
 	"version": "1.0.0",
 	"description": "Lock.js is a javaScript library for generating numbers lock.",
 	"main": "dist/lock.min.js",

@@ -1,8 +1,11 @@
 /**
- * Lock class
- * @author Chalda Pnuzig
- * @version 0.1
+ * Lock.js v1.0.0
+ * Copyright (c) 2021, Chalda Pnuzig
+ *
+ * This source code is licensed under the ISC License found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 class Lock {
 	constructor(options) {
 		let defaults = {

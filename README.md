@@ -36,17 +36,18 @@ If you're looking to get started with minimal fuss, include `dist/lock.min.js`  
     - [js/](src)
         - [lock.js](src/js/lock.js) — Full version
 
-<!--
+
 You can install this module as a component from NPM:
 
 ```bash
-npm install --save chalda-pnuzig-log
+npm install @chalda/lock.js
 ```
 You can also include this library in your HTML page directly from a CDN:
 ```html
-<script src="https://cdn..net/npm/lock@1.0.0/dist/lock.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@chalda/lock.js@1.0.0/dist/lock.css">
+<script src="https://unpkg.com/@chalda/lock.js@1.0.0/dist/lock.min.js"></script>
 ```
--->
+
 
 ### Usage
 
