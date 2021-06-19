@@ -6,10 +6,18 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Lock</title>
 	<link rel="stylesheet" href="dist/lock.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap" rel="stylesheet">
 	<style>
 		* {margin : 0; padding : 0}
 		body {
-			background : #EEE;
+			background  : #EEE;
+			font-family : 'Fira Code', monospace;
+			font-size   : 15px;
+		}
+		pre {
+			font-family : 'Fira Code', monospace;
+
 		}
 		.container {
 			max-width  : 700px;
@@ -24,6 +32,9 @@
 			margin         : 20px;
 			padding-bottom : 50px;
 
+		}
+		.demo h2 {
+			margin-bottom : 10px;
 		}
 		.demo pre {
 			background : #EEE;
@@ -62,14 +73,12 @@
 	<div class="demo">
 		<div>
 			<h2>Custom number of wheels and items. Interval between two rotations increased to 1000 </h2>
-			<pre>
-new Lock({
+			<pre>new Lock({
   diameter : 100,
   wheels   : 7,
   items    : 16,
   timeout  : 1000,
-});
-			</pre>
+});	</pre>
 		</div>
 		<div id="lock2"></div>
 	</div>
@@ -88,9 +97,7 @@ new Lock({
   onclose  : (attemps) => {
     alert('Close!');
   }
-});
-
-			</pre>
+});</pre>
 
 		</div>
 		<div id="lock3"></div>
@@ -110,8 +117,7 @@ document.getElementById('btn__getCode').addEventListener('click',  ()=>{
 ));
 document.getElementById('btn__setCode').addEventListener('click',  ()=>{
   lock.setCode('42042');
-));
-</pre>
+));</pre>
 
 		</div>
 		<div id="lock4"></div>
@@ -121,6 +127,15 @@ document.getElementById('btn__setCode').addEventListener('click',  ()=>{
 
 	</div>
 
+	<div class="demo">
+		<div>
+			<h2>Be creative!</h2>
+			<p>Code: 🎆🎆🎆🎆</p>
+
+		</div>
+		<div id="lock5"></div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js" ntegrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="dist/lock.min.js"></script>
 	<script>
 		new Lock({id : 'lock1'});
@@ -153,6 +168,36 @@ document.getElementById('btn__setCode').addEventListener('click',  ()=>{
 		document.getElementById('btn__getCode').addEventListener('click', () => alert(lock.getCode()));
 		document.getElementById('btn__setCode').addEventListener('click', () => lock.setCode('42042'));
 
+
+		new Lock({
+			code    : '🎆🎆🎆🎆',
+			id      : 'lock5',
+			timeout : 15,
+			items   : ['😢', '🥱', '😴', '😖', '🥵', '🤢', '☠', '💩', '🎆'],
+			onopen  : () => {
+				let end = Date.now() + (2 * 1000);
+				(function frame() {
+					confetti({
+						zIndex        : 1070,
+						particleCount : 2,
+						angle         : 60,
+						spread        : 155,
+						origin        : {x : .5, y : .9},
+					});
+					confetti({
+						zIndex        : 1070,
+						particleCount : 2,
+						angle         : 120,
+						spread        : 155,
+						origin        : {x : .5, y : .9},
+					});
+
+					if (Date.now() < end) {
+						requestAnimationFrame(frame);
+					}
+				}());
+			}
+		});
 	</script>
 </div>
 </body>
