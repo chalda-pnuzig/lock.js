@@ -1,0 +1,27 @@
+{
+	"name": "lock.js",
+	"version": "1.0.0",
+	"description": "Lock.js is a javaScript library for generating numbers lock.",
+	"main": "dist/lock.min.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/chalda-pnuzig/lock.js.git"
+	},
+	"author": "Chalda Pnuzig <noemail@example.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chalda-pnuzig/lock.js/issues"
+	},
+	"homepage": "https://github.com/chalda-pnuzig/lock.js#readme",
+	"dependencies": {},
+	"keywords": [
+		"lock",
+		"animation",
+		"number lock",
+		"digit combination lock"
+	],
+	"funding": {
+		"type": "donate",
+		"url": "https://www.paypal.me/chaldapnuzig"
+	}
+}

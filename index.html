@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Lock</title>
+	<link rel="stylesheet" href="dist/lock.css">
+	<style>
+		* {margin : 0; padding : 0}
+		body {
+			background : #EEE;
+		}
+		.container {
+			max-width  : 700px;
+			margin     : auto;
+			box-shadow : 0 0 10px #000;
+			min-height : 100vh;
+			background : #FFF;
+		}
+		.container img {max-width : 400px; margin : auto; display : block;}
+
+		.demo {
+			margin         : 20px;
+			padding-bottom : 50px;
+
+		}
+		.demo pre {
+			background : #EEE;
+			padding    : 10px;
+		}
+		#evt {
+			max-height : 200px;
+			overflow   : auto;
+			background : #000;
+			color      : #0F0;
+		}
+		div[id^=lock] {
+			background: #222;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<img src="src/images/logo.svg">
+	<hr>
+	<div class="demo">
+		<div>
+			<h2>Default</h2>
+			<pre>new Lock();</pre>
+		</div>
+		<div id="lock1"></div>
+	</div>
+	<div class="demo">
+		<div>
+			<h2>Custom number of wheels and items. Interval between two rotations increased to 1000 </h2>
+			<pre>
+new Lock({
+  diameter : 100,
+  wheels   : 7,
+  items    : 16,
+  timeout  : 1000,
+});
+			</pre>
+		</div>
+		<div id="lock2"></div>
+	</div>
+	<div class="demo">
+		<div>
+			<h2>Custom items, opening code set to LOCK and callbacks</h2>
+			<pre>new Lock({
+  code     : 'LOCK',
+  items:['L','O','C','K','🔒'],
+  onchange : (code, isOpen, moves) => {
+    console.log(code, isOpen, moves);
+  },
+  onopen   : (m) => {
+    alert('Open!');
+  },
+  onclose  : (m) => {
+    alert('Close!');
+  }
+});
+
+			</pre>
+
+		</div>
+		<div id="lock3"></div>
+		<pre id="evt"></pre>
+
+	</div>
+
+	<div class="demo">
+		<div>
+			<h2>Methods</h2>
+			<pre>let lock = new Lock();
+document.getElementById('btn__getValue').addEventListener('click',  ()=>{
+  alert(lock.getCode());
+));
+document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
+  lock.shuffle());
+});
+			</pre>
+
+		</div>
+		<div id="lock4"></div>
+		<button id="btn__getCode">getCode</button>
+		<button id="btn__shuffle">shuffle</button>
+
+	</div>
+
+	<script src="dist/lock.min.js"></script>
+	<script>
+		new Lock({id : 'lock1'});
+		new Lock({
+			id       : 'lock2',
+			diameter : 100,
+			wheels   : 7,
+			items    : 16,
+			timeout  : 1000,
+		});
+		let evt = document.getElementById('evt');
+		new Lock({
+			id       : 'lock3',
+			code     : 'LOCK',
+			diameter : 50,
+			items    : ['L', 'O', 'C', 'K', '🔒'],
+			onchange : (code, isOpen, moves) => {
+				console.log(code, isOpen, moves);
+				evt.innerHTML = `Code: ${code}\nIs open? ${isOpen}\nMoves: ${moves}`;
+			},
+			onopen   : (m) => {
+				alert('Open!');
+			},
+			onclose  : (m) => {
+				alert('Close!');
+			}
+		});
+		let lock = new Lock({id:'lock4'});
+		document.getElementById('btn__getCode').addEventListener('click',  e=>alert(lock.getCode()));
+		document.getElementById('btn__shuffle').addEventListener('click',  e=>lock.shuffle());
+	</script>
+</div>
+</body>
+</html>
