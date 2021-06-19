@@ -36,15 +36,15 @@
 			color      : #0F0;
 		}
 		div[id^=lock] {
-			background: #222;
-			text-align: center;
+			background : #222;
+			text-align : center;
 		}
-		button{
-			padding:5px 20px;
-			margin:20px;
-			border:1px solid #000;
-			background:#eee;
-			border-radius: 3px;
+		button {
+			padding       : 5px 20px;
+			margin        : 20px;
+			border        : 1px solid #000;
+			background    : #EEE;
+			border-radius : 3px;
 		}
 	</style>
 </head>
@@ -102,18 +102,22 @@ new Lock({
 		<div>
 			<h2>Methods</h2>
 			<pre>let lock = new Lock();
-document.getElementById('btn__getValue').addEventListener('click',  ()=>{
-  alert(lock.getCode());
-));
 document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
   lock.shuffle());
 });
-			</pre>
+document.getElementById('btn__getCode').addEventListener('click',  ()=>{
+  alert(lock.getCode());
+));
+document.getElementById('btn__setCode').addEventListener('click',  ()=>{
+  lock.setCode('42042');
+));
+</pre>
 
 		</div>
 		<div id="lock4"></div>
-		<button id="btn__getCode">getCode</button>
-		<button id="btn__shuffle">shuffle</button>
+		<button id="btn__shuffle">shuffle()</button>
+		<button id="btn__getCode">getCode()</button>
+		<button id="btn__setCode">setCode('123456')</button>
 
 	</div>
 
@@ -144,9 +148,10 @@ document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
 				alert('Close!');
 			}
 		});
-		let lock = new Lock({id:'lock4'});
-		document.getElementById('btn__getCode').addEventListener('click',  ()=>alert(lock.getCode()));
-		document.getElementById('btn__shuffle').addEventListener('click',  ()=>lock.shuffle());
+		let lock = new Lock({id : 'lock4'});
+		document.getElementById('btn__shuffle').addEventListener('click', () => lock.shuffle());
+		document.getElementById('btn__getCode').addEventListener('click', () => alert(lock.getCode()));
+		document.getElementById('btn__setCode').addEventListener('click', () => lock.setCode('42042'));
 
 	</script>
 </div>

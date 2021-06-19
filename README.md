@@ -73,10 +73,11 @@ The `lock` parameter is a single optional `options` object, which has the follow
 
 ### Methods
 
-| Method     | Decription     | Example
-|------------|----------------|---------
-| `shuffle([min], [max], [time])`  | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul> | `let lock = new Lock(); let newCode = lock.shuffle();`
-| `getCode`  | Return the current code         | ```let lock = new Lock(); console.log(lock.getCode();```
+| Method                          | Decription               | Example
+|---------------------------------|--------------------------|---------
+| `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul> | `let newCode = lock.shuffle();`
+| `getCode`                       | Return the current code  | ```let code = lock.getCode();```
+| `setCode(code)`                 | Set the code             | ```lock.setCode('12345');```
 
 --------------------------------
 

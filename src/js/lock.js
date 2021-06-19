@@ -1,5 +1,5 @@
 /**
- * Lock.js v1.0.1
+ * Lock.js v1.0.2
  * Copyright (c) 2021, Chalda Pnuzig
  *
  * This source code is licensed under the ISC License found in the
@@ -46,7 +46,7 @@ class Lock {
 		this.elementHeight = this.circumference / (this.options.items - 1);
 
 		this.attemps = 0;
-		this.open  = this.options.code === this.actualCode.join('');
+		this.open    = this.options.code === this.actualCode.join('');
 
 		this.lock = document.createElement('div');
 		this.lock.classList.add('lock');
@@ -110,6 +110,24 @@ class Lock {
 		return code;
 	}
 
+	setCode(code) {
+		let array = code.split('');
+		array     = array.map(x => isNaN(x) ? x : +x);
+
+		array.forEach((el, n) => {
+			let p = this.items.map(x => isNaN(x) ? x : +x).indexOf(el);
+			if (p === -1) return;
+			let direction = Math.random() > .5;
+
+			this.rotate[n] = direction ? (this.angle * (this.items.length - p)) : -this.angle * p;
+
+			this.lock.querySelector('.wheel:nth-child(' + (n + 1) + ') .wheel__inner').style.transform = 'rotateX(' + this.rotate[n] + 'deg)';
+
+			this.actualCode[n] = p;
+		});
+
+	}
+
 	wheel(n) {
 		let wheel = document.createElement('div');
 		wheel.classList.add('wheel');
@@ -159,7 +177,8 @@ class Lock {
 			let direction = Math.random() > .5 ? 1 : -1;
 			let spin      = Math.floor(Math.random() * (max - min) + min);
 
-			this.rotate[n]                                                                             = this.angle * spin * direction;
+			this.rotate[n] = this.angle * spin * direction;
+
 			this.lock.querySelector('.wheel:nth-child(' + (n + 1) + ') .wheel__inner').style.transform = 'rotateX(' + this.rotate[n] + 'deg)';
 
 			let t = spin % this.options.items;
