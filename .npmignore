@@ -40,6 +40,7 @@ coverage/
 
 # project-specific stuff
 index.html
+src/images/
 
 # dotfiles don't need to be in npm
 .*
