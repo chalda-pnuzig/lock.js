@@ -1,5 +1,5 @@
 /**
- * Lock.js v1.0.0
+ * Lock.js v1.0.1
  * Copyright (c) 2021, Chalda Pnuzig
  *
  * This source code is licensed under the ISC License found in the
