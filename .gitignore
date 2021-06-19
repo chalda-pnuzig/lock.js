@@ -38,6 +38,3 @@ node_modules/
 coverage/
 .nyc_output/
 
-
-# Project exclude paths
-/dist/

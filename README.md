@@ -45,7 +45,7 @@ You can see all versions [on the releases page](https://github.com/chalda-pnuzig
 new Lock(options);
 ```
 
-#### `options`
+### options
 
 The `lock` parameter is a single optional `options` object, which has the following properties:
 
