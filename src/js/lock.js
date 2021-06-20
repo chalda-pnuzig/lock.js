@@ -1,5 +1,5 @@
 /**
- * Lock.js v1.1.0
+ * Lock.js v1.1.1
  * Copyright (c) 2021, Chalda Pnuzig
  *
  * This source code is licensed under the ISC License found in the
@@ -70,6 +70,8 @@ class Lock {
 	onScroll(e) {
 		if (e.cancelable) e.preventDefault();
 
+		if (this.onTimeout || this.clickElement === false || !this.clickInner) return;
+
 		this.onTimeout = true;
 		let p          = e.clientY || e.touches[0].clientY;
 
@@ -91,7 +93,6 @@ class Lock {
 		let code = this.getCode();
 
 		setTimeout(() => {
-			this.onTimeout = false;
 			if (code === this.options.code) {
 				this.open = true;
 				this.options.onopen(this.attempts);
@@ -100,6 +101,7 @@ class Lock {
 				this.options.onclose(this.attempts);
 			}
 			this.options.onchange(code, this.open, this.attempts);
+			this.onTimeout = false;
 		}, this.options.timeout);
 		this.lock.style.setProperty('--rotationSpeed', this.options.timeout / 2 + 'ms');
 	}
