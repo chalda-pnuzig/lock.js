@@ -11,9 +11,12 @@ Lock.js is a javaScript library for generating numbers lock.
 ## Features
 
 - **Interactive** - You can change combination by clicking, dragging or using the mouse wheel
-- **Events** - There are methods to check if the entered code is the correct one or not
+- **Events** - There are events on change and when the entered code is the correct one or not
 - **Shuffle** — You can randomize the lock procedurally
 - **Customizzable** — It's easy to change the look via CSS
+
+![Lock.js](src/images/lock.webp)
+
 
 ## Installation and files
 
@@ -21,6 +24,14 @@ Lock.js is a javaScript library for generating numbers lock.
 
 <link rel="stylesheet" href="dist/lock.css">
 <script src="dist/lock.min.js"></script>
+```
+
+```html
+
+<div id="lock"></div>
+<script>
+	new Lock();
+</script>
 ```
 
 All pre-built files needed to use Lock can be found in the "dist" folder.
@@ -36,18 +47,19 @@ If you're looking to get started with minimal fuss, include `dist/lock.min.js`  
     - [js/](src)
         - [lock.js](src/js/lock.js) — Full version
 
-
 You can install this module as a component from NPM:
 
 ```bash
 npm install @chalda/lock.js
 ```
+
 You can also include this library in your HTML page directly from a CDN:
+
 ```html
+
 <link rel="stylesheet" href="https://unpkg.com/@chalda/lock.js/dist/lock.css">
 <script src="https://unpkg.com/@chalda/lock.js/dist/lock.min.js"></script>
 ```
-
 
 ### Usage
 
@@ -59,7 +71,7 @@ new Lock(options);
 
 The `lock` parameter is a single optional `options` object, which has the following properties:
 
-| option     | type                                 | default  | description
+| Option     | Type                                 | Default  | Description
 |------------|--------------------------------------|----------|----------------
 | `id`       | _String_                             | 'lock'   | The id of the div where insert the lock
 | `wheels `  | _Integer_                            | 5        | The number of digit wheels. it can be left out if you specify a code
@@ -67,17 +79,19 @@ The `lock` parameter is a single optional `options` object, which has the follow
 | `code `    | _String_                             | '00000'  | The code to open the lock
 | `timeout`  | _Integer_                            | 500      | The amount of time before the code can be changed again
 | `diameter` | _Integer_                            | 80      | The diameter of the lock
-| `onchange` | _Function_ <ul><li>_string_ `code`</li><li> _bool_ `isOpen`</li><li>_int_ `attemps`</li></ul>| | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attemps`)
-| `onopen`   | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
-| `onclose`  | _Function_ <ul><li>_int_ `attemps`</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
+| `onchange` | _Function_ <ul><li>_string_ `code`</li><li> _bool_ `isOpen`</li><li>_int_ `attempts`</li></ul>| | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attempts`)
+| `onopen`   | _Function_ <ul><li>_int_ `attempts`</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
+| `onclose`  | _Function_ <ul><li>_int_ `attempts`</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
 
 ### Methods
 
-| Method                          | Decription              
-|---------------------------------|--------------------------
-| `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul>  Example:`let newCode = lock.shuffle();`
-| `getCode`                       | Return the current code  <br>Example: ```let code = lock.getCode();```
-| `setCode(code)`                 | Set the code             <br>Example: ```lock.setCode('12345');```
+| Method                                   | Decription
+|------------------------------------------|--------------------------
+| _String_ `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul>  Example:`let newCode = lock.shuffle();`
+| _String_ `getCode`                       | Return the current code  <br>Example: ```let code = lock.getCode();```
+| _Void_ `setCode(code)`                   | Set the code             <br>Example: ```lock.setCode('12345');```
+| _Integer_ `getAttempts()`                 | Returns the number of attempts made <br>Example: ```lock.getAttempts();```
+| _Boolean_ `isOpen()`                     | Returns true if the lock is open<br>Example: ```lock.isOpen();```
 
 --------------------------------
 
@@ -85,7 +99,4 @@ The `lock` parameter is a single optional `options` object, which has the follow
 
 ISC License (ISC) - Copyright &copy;2021 [Chalda Pnuzig ](https://github.com/chalda-pnuzig/lock.js)
 
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
-DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+See the file [LICENSE](LICENSE)

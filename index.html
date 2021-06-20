@@ -39,6 +39,8 @@
 		.demo pre {
 			background : #EEE;
 			padding    : 10px;
+			overflow   : auto;
+			font-size  : 13px;
 		}
 		#evt {
 			max-height : 200px;
@@ -52,10 +54,19 @@
 		}
 		button {
 			padding       : 5px 20px;
-			margin        : 20px;
+			margin        : 20px 20px 0 0;
 			border        : 1px solid #000;
 			background    : #EEE;
 			border-radius : 3px;
+		}
+		#glitter {
+			transform  : scale(0);
+			transition : .5s all;
+			text-align : center;
+			font-size  : 60px;
+		}
+		#glitter.show {
+			transform : scale(1);
 		}
 	</style>
 </head>
@@ -91,10 +102,10 @@
   onchange : (code, isOpen, moves) => {
     console.log(code, isOpen, moves);
   },
-  onopen   : (attemps) => {
-    alert(`Open in ${attemps} attems!`);
+  onopen   : (attempts) => {
+    alert(`Open in ${attempts} attems!`);
   },
-  onclose  : (attemps) => {
+  onclose  : (attempts) => {
     alert('Close!');
   }
 });</pre>
@@ -110,30 +121,38 @@
 			<h2>Methods</h2>
 			<pre>let lock = new Lock();
 document.getElementById('btn__shuffle').addEventListener('click',  ()=>{
-  lock.shuffle());
+  lock.shuffle();
 });
 document.getElementById('btn__getCode').addEventListener('click',  ()=>{
   alert(lock.getCode());
 ));
 document.getElementById('btn__setCode').addEventListener('click',  ()=>{
   lock.setCode('42042');
-));</pre>
+));
+document.getElementById('btn__getAttempts').addEventListener('click',  ()=>{
+  alert(lock.getAttempts());
+});
+document.getElementById('btn__isOpen').addEventListener('click',  ()=>{
+  alert(lock.isOpen());
+});</pre>
 
 		</div>
 		<div id="lock4"></div>
 		<button id="btn__shuffle">shuffle()</button>
 		<button id="btn__getCode">getCode()</button>
 		<button id="btn__setCode">setCode('42042')</button>
+		<button id="btn__getAttempts">getAttempts()</button>
+		<button id="btn__isOpen">isOpen()</button>
 
 	</div>
 
 	<div class="demo">
 		<div>
 			<h2>Be creative!</h2>
-			<p>Code: 🎆🎆🎆🎆</p>
-
+			<p>Code: ✨✨✨✨</p>
 		</div>
 		<div id="lock5"></div>
+		<div id="glitter">I HATE GLITTER!</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js" ntegrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="dist/lock.min.js"></script>
@@ -156,10 +175,10 @@ document.getElementById('btn__setCode').addEventListener('click',  ()=>{
 				console.log(code, isOpen, moves);
 				evt.innerHTML = `Code: ${code}\nIs open? ${isOpen}\nMoves: ${moves}`;
 			},
-			onopen   : (attemps) => {
-				alert(`Open in ${attemps} attems!`);
+			onopen   : (attempts) => {
+				alert(`Open in ${attempts} attempts!`);
 			},
-			onclose  : (attemps) => {
+			onclose  : (attempts) => {
 				alert('Close!');
 			}
 		});
@@ -167,29 +186,39 @@ document.getElementById('btn__setCode').addEventListener('click',  ()=>{
 		document.getElementById('btn__shuffle').addEventListener('click', () => lock.shuffle());
 		document.getElementById('btn__getCode').addEventListener('click', () => alert(lock.getCode()));
 		document.getElementById('btn__setCode').addEventListener('click', () => lock.setCode('42042'));
+		document.getElementById('btn__getAttempts').addEventListener('click', () => alert(lock.getAttempts()));
+		document.getElementById('btn__isOpen').addEventListener('click', () => alert(lock.isOpen()));
 
 
 		new Lock({
-			code    : '🎆🎆🎆🎆',
+			code    : '✨✨✨✨',
 			id      : 'lock5',
-			timeout : 15,
-			items   : ['😢', '🥱', '😴', '😖', '🥵', '🤢', '☠', '💩', '🎆'],
+			timeout : 200,
+			items   : ['😢', '🥱', '😴', '😖', '🥵', '🤢', '☠', '💩', '✨'],
+			onclose : () => {
+				document.getElementById('glitter').classList.remove('show');
+			},
 			onopen  : () => {
 				let end = Date.now() + (2 * 1000);
+				document.getElementById('glitter').classList.add('show');
 				(function frame() {
 					confetti({
-						zIndex        : 1070,
-						particleCount : 2,
+						colors        : ['#FFF', '#C4C4C4', '#CAFBFF', '#C0DDE2'],
+						particleCount : 5,
 						angle         : 60,
 						spread        : 155,
 						origin        : {x : .5, y : .9},
+						shapes        : ['circle'],
+						scalar        : .6
 					});
 					confetti({
-						zIndex        : 1070,
-						particleCount : 2,
+						colors        : ['#FFF', '#C4C4C4', '#CAFBFF', '#C0DDE2'],
+						particleCount : 5,
 						angle         : 120,
 						spread        : 155,
 						origin        : {x : .5, y : .9},
+						shapes        : ['circle'],
+						scalar        : .6
 					});
 
 					if (Date.now() < end) {

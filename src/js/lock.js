@@ -1,5 +1,5 @@
 /**
- * Lock.js v1.0.2
+ * Lock.js v1.1.0
  * Copyright (c) 2021, Chalda Pnuzig
  *
  * This source code is licensed under the ISC License found in the
@@ -14,11 +14,11 @@ class Lock {
 			items    : 10,
 			timeout  : 500,
 			diameter : 80,
-			onchange : (code, isOpen, attemps) => {
+			onchange : (code, isOpen, attempts) => {
 			},
-			onopen   : (attemps) => {
+			onopen   : (attempts) => {
 			},
-			onclose  : (attemps) => {
+			onclose  : (attempts) => {
 			}
 		};
 
@@ -45,12 +45,12 @@ class Lock {
 		this.circumference = Math.PI * this.diameter;
 		this.elementHeight = this.circumference / (this.options.items - 1);
 
-		this.attemps = 0;
-		this.open    = this.options.code === this.actualCode.join('');
+		this.attempts = 0;
+		this.open     = this.options.code === this.actualCode.join('');
 
 		this.lock = document.createElement('div');
 		this.lock.classList.add('lock');
-		for (let i = 0; i < this.options.wheels; i++) this.wheel(i);
+		for (let i = 0; i < this.options.wheels; i++) this._addWheel(i);
 		this.lock.style.setProperty('--elementHeight', this.elementHeight + 'px');
 		this.lock.style.height     = (this.diameter) + 'px';
 		this.lock.style.paddingTop = this.elementHeight + 'px';
@@ -63,25 +63,25 @@ class Lock {
 		this.lock.addEventListener('contextmenu', e => e.preventDefault());
 		this.lock.addEventListener('mouseleave', e => this.onScroll(e));
 		this.lock.addEventListener('mouseup', e => this.onScroll(e));
+		this.lock.addEventListener('touchmove', e => this.onScroll(e));
 
 	}
 
 	onScroll(e) {
-		e.preventDefault();
-
-		if (this.onTimeout || this.clickElement === false || !this.clickInner) return;
+		if (e.cancelable) e.preventDefault();
 
 		this.onTimeout = true;
+		let p          = e.clientY || e.touches[0].clientY;
 
-		let d = this.clickPosition - e.clientY;
-		if (Math.abs(d) > 2) d = this.clickPosition > e.clientY;
+		let d = this.clickPosition - p;
+		if (Math.abs(d) > 2) d = this.clickPosition > p;
 		else d = e.button !== 2;
 		let direction = d ? 1 : -1;
 
 		let n             = this.clickElement;
 		this.clickElement = false;
 
-		this.attemps++;
+		this.attempts++;
 		this.rotate[n] += this.angle * direction;
 		this.clickInner.style.transform = 'rotateX(' + this.rotate[n] + 'deg)';
 		this.actualCode[n] -= direction;
@@ -90,16 +90,16 @@ class Lock {
 
 		let code = this.getCode();
 
-		this.options.onchange(code, this.open, this.attemps);
 		setTimeout(() => {
 			this.onTimeout = false;
 			if (code === this.options.code) {
 				this.open = true;
-				this.options.onopen(this.attemps);
+				this.options.onopen(this.attempts);
 			} else if (this.open) {
 				this.open = false;
-				this.options.onclose(this.attemps);
+				this.options.onclose(this.attempts);
 			}
+			this.options.onchange(code, this.open, this.attempts);
 		}, this.options.timeout);
 		this.lock.style.setProperty('--rotationSpeed', this.options.timeout / 2 + 'ms');
 	}
@@ -108,6 +108,14 @@ class Lock {
 		let code = '';
 		this.actualCode.forEach(v => code += this.items[v])
 		return code;
+	}
+
+	getAttempts() {
+		return this.attempts;
+	}
+
+	isOpen() {
+		return this.open;
 	}
 
 	setCode(code) {
@@ -128,11 +136,16 @@ class Lock {
 
 	}
 
-	wheel(n) {
+	_addWheel(n) {
 		let wheel = document.createElement('div');
 		wheel.classList.add('wheel');
 		let inner = document.createElement('div');
 		inner.classList.add('wheel__inner');
+
+		const rotangle        = -20;
+		let r                 = rotangle * n / (this.wheels - 1) - rotangle / 2;
+		wheel.style.transform = 'rotateY(' + (-r) + 'deg) translateX(' + r + 'px)';
+		wheel.style.zIndex    = rotangle > 0 ? Math.round(Math.abs(r)) : (r > 0 ? n : this.wheels - n);
 
 		this.items.forEach((v, i) => {
 			let div = document.createElement('div');
@@ -154,6 +167,11 @@ class Lock {
 
 		wheel.addEventListener('mousedown', e => {
 			this.clickPosition = e.clientY;
+			this.clickElement  = n;
+			this.clickInner    = inner;
+		});
+		wheel.addEventListener('touchstart', e => {
+			this.clickPosition = e.touches[0].clientY;
 			this.clickElement  = n;
 			this.clickInner    = inner;
 		});
