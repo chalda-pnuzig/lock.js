@@ -1,7 +1,4 @@
-# lock.js
-
-<img alt="lock.js" src="https://chalda-pnuzig.github.io/lock.js/src/images/logo.svg" width="200" />
-
+# LOCK<sub><sub><sup><sup><sub> 🔒&#xFE0E; </sub></sup></sup></sub></sub>JS
 Lock.js is a javaScript library for generating numbers lock.
 
 ## Demo
@@ -17,23 +14,18 @@ Lock.js is a javaScript library for generating numbers lock.
 
 ![Lock.js](src/images/lock.webp)
 
-
 ## Installation and files
 
 ```html
-
 <link rel="stylesheet" href="dist/lock.css">
 <script src="dist/lock.min.js"></script>
 ```
-
 ```html
-
 <div id="lock"></div>
 <script>
 	new Lock();
 </script>
 ```
-
 All pre-built files needed to use Lock can be found in the "dist" folder.
 
 If you're looking to get started with minimal fuss, include `dist/lock.min.js`  and `dist/lock.css`.
@@ -52,51 +44,51 @@ You can install this module as a component from NPM:
 ```bash
 npm install @chalda/lock.js
 ```
-
 You can also include this library in your HTML page directly from a CDN:
 
 ```html
-
 <link rel="stylesheet" href="https://unpkg.com/@chalda/lock.js/dist/lock.css">
 <script src="https://unpkg.com/@chalda/lock.js/dist/lock.min.js"></script>
 ```
-
 ### Usage
 
 ```js
 new Lock(options);
 ```
-
 ### Options
 
-The `lock` parameter is a single optional `options` object, which has the following properties:
-
-| Option     | Type                                 | Default  | Description
-|------------|--------------------------------------|----------|----------------
-| `id`       | _String_                             | 'lock'   | The id of the div where insert the lock
-| `wheels `  | _Integer_                            | 5        | The number of digit wheels. it can be left out if you specify a code
-| `items`    | _Integer_ &#124; Array&lt;String&gt; | 10       | The number of digits that can be chosen or an array of elements
-| `code `    | _String_                             | '00000'  | The code to open the lock
-| `timeout`  | _Integer_                            | 500      | The amount of time before the code can be changed again
-| `diameter` | _Integer_                            | 80      | The diameter of the lock
-| `onchange` | _Function_ <ul><li>_string_ `code`</li><li> _bool_ `isOpen`</li><li>_int_ `attempts`</li></ul>| | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attempts`)
-| `onopen`   | _Function_ <ul><li>_int_ `attempts`</li></ul>   |          | This function is called when the lock is opened (i.e. the `code` parameter matches)
-| `onclose`  | _Function_ <ul><li>_int_ `attempts`</li></ul>   |          |This function is called when the lock is closes (only when the lock is open)
+The `Lock` parameter is a single optional `options` object, which has the following properties:
+<!-- OPTIONS_TABLE  -->
+| Option     | Type                                                                                                 | Default | Description
+|------------|------------------------------------------------------------------------------------------------------|---------|--------------------
+| `id`       | _string_                                                                                             | lock    | The id of the div where insert the lock                                                                                                                            
+| `wheels`   | _number_                                                                                             | 5       | The numbers of wheels. If not specified then take the length of `code` option (if specified)                                                                       
+| `items`    | _number&#124;string[]_                                                                               | 10      | The number of digits that can be chosen or an array of elements or an array of strings                                                                             
+| `code`     | _number&#124;string&#124;string[]_                                                                   | 00000   | The code to open the lock. If not specified then take the first element of `items` repeated `wheels` times                                                         
+| `encoded`  | _boolean_                                                                                            | false   | If true the `code` option is considered obfuscated by the `encode` method                                                                                          
+| `timeout`  | _number_                                                                                             | 500     | The amount of time before the code can be changed again                                                                                                            
+| `diameter` | _number_                                                                                             | 80      | The diameter of the lock                                                                                                                                           
+| `onChange` | _Function<ul><li>_Array_ `code` </li><li>_boolean_ `isOpen` </li><li>_number_ `attempts` </li></ul>_ |         | This function is called upon every change to the lock. Pass the current code (`code`), if the lock is open (`isOpen`) and the number of attempts made (`attempts`) 
+| `onOpen`   | _Function<ul><li>_number_ `attempts` </li></ul>_                                                     |         | This function is called when the lock opens (i.e. the `code` option matches)                                                                                       
+| `onClose`  | _Function<ul><li>_number_ `attempts` </li></ul>_                                                     |         | This function is called when the lock closes (only when it's already open)                                                                                         
+<!-- OPTIONS_TABLE  -->
 
 ### Methods
 
-| Method                                   | Decription
-|------------------------------------------|--------------------------
-| _String_ `shuffle([min], [max], [time])` | Shuffle the lock by turning each wheel between `min` and `max` times taking `time`  milliseconds. The method returns the new `code`<ul><li><small>(optional)</small> `min` (default 10)</li><li><small>(optional)</small> `max` : (default 100)</li><li><small>(optional)</small> `time` in ms (default 2500ms)</li></ul>  Example:`let newCode = lock.shuffle();`
-| _String_ `getCode`                       | Return the current code  <br>Example: ```let code = lock.getCode();```
-| _Void_ `setCode(code)`                   | Set the code             <br>Example: ```lock.setCode('12345');```
-| _Integer_ `getAttempts()`                 | Returns the number of attempts made <br>Example: ```lock.getAttempts();```
-| _Boolean_ `isOpen()`                     | Returns true if the lock is open<br>Example: ```lock.isOpen();```
+<!-- METHODS_TABLE  -->
+| Method        | Params                                                                                                                                                                                                                                              | Return     | Description
+|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|--------------------
+| `getCode`     |                                                                                                                                                                                                                                                     | _string[]_ | Return the current code<br><sub>Example:</sub><br>`let lock = new Lock();`<br>`lock.getCode();`                                                                                                                      
+| `getAttempts` |                                                                                                                                                                                                                                                     | _number_   | Return the number of attempts<br><sub>Example:</sub><br>`let lock = new Lock();`<br>`lock.getAttempts();`                                                                                                            
+| `isOpen`      |                                                                                                                                                                                                                                                     | _boolean_  | Return true if the lock is open<br><sub>Example:</sub><br>`let lock = new Lock();`<br>`lock.isOpen();`                                                                                                               
+| `setCode`     | <ol><li>_number&#124;string&#124;string[]_ `code` : The new code to set</li><li>(optional) _boolean_ `animation` : If true the code changes with an animation, default:true</li></ol>                                                               | _Lock_     | Set the code of lock<br><sub>Example:</sub><br>`let lock = new Lock();`<br>`lock.setCode('12345');`                                                                                                                  
+| `shuffle`     | <ol><li>(optional) _number_ `min` : Minimum number of rotations, default:10</li><li>(optional) _number_ `max` : Max number of rotations, default:100</li><li>(optional) _number_ `time` : Time of rotations in milliseconds, default:2500</li></ol> | _string[]_ | Shuffle the lock by turning each wheel between`min` and `max` times taking `time`  milliseconds.The method returns the new `code`<br><sub>Example:</sub><br>`let lock = new Lock();`<br>`lock.shuffle(50,150,1000);` 
+| `encode`      | <ol><li>_number&#124;string&#124;string[]_ `text` : The text to encode</li></ol>                                                                                                                                                                    | _string_   | Encode a string<br><sub>Example:</sub><br>`// Returns 'JD13TWo0bk1qNFhN'`<br>`Lock.encode("123");`                                                                                                                   
+| `decode`      | <ol><li>_number&#124;string&#124;string[]_ `text` : The text to decode</li></ol>                                                                                                                                                                    | _string[]_ | Decode a string<br><sub>Example:</sub><br>`// Returns ['1','2','3']`<br>`Lock.encode("JD13TWo0bk1qNFhN");`                                                                                                           
+<!-- METHODS_TABLE  -->
 
 --------------------------------
 
 ### License
 
-ISC License (ISC) - Copyright &copy;2021 [Chalda Pnuzig ](https://github.com/chalda-pnuzig/lock.js)
-
-See the file [LICENSE](LICENSE)
+ISC License (ISC) - Copyright &copy;2021 [Chalda Pnuzig](https://github.com/chalda-pnuzig/lock.js). See the file [LICENSE](LICENSE)

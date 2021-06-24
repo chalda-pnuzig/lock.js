@@ -38,3 +38,5 @@ node_modules/
 coverage/
 .nyc_output/
 
+/jsdoc.php
+/_README.md
